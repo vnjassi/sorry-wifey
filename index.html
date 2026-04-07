@@ -3,83 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Memory Lane... 🥀</title>
+    <title>The Last Request... 🥀</title>
     <style>
-        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Times New Roman', Times, serif; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #0a0a0a; color: white; font-family: 'Poppins', sans-serif; overflow: hidden; display: flex; justify-content: center; align-items: center; }
         
-        /* The "Video" Layer */
-        #cinematic-video {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://media.giphy.com/media/26hirEPeO70wYf2lG/giphy.gif'); /* A calm, vintage nostalgic film gif */
-            background-size: cover; background-position: center;
-            filter: grayscale(80%) brightness(0.4); /* Vintage Film Look */
-            transition: 1.5s filter; z-index: -1;
-        }
+        .container { text-align: center; padding: 20px; z-index: 10; transition: 1s; }
+        h1 { font-size: 2rem; margin-bottom: 40px; color: #eee; }
 
-        /* Floating Cinematic Particles */
-        .particle { position: fixed; width: 3px; height: 3px; background: rgba(255,255,255,0.5); border-radius: 50%; pointer-events: none; animation: floatParticle linear infinite; }
-        @keyframes floatParticle { to { transform: translateY(-105vh) translateX(50px); } }
-
-        /* The Interrupted Overlay */
-        .overlay-broken { position: absolute; width: 100%; height: 100%; background: #000; display: none; z-index: 100; justify-content: center; align-items: center; }
-        .static-noise { font-family: 'Courier New', monospace; color: #ff4d6d; font-size: 0.8rem; text-align: left; }
-
-        /* General Styling */
-        .container { text-align: center; z-index: 10; max-width: 600px; padding: 20px; }
-        h1 { font-size: 2.2rem; font-style: italic; margin-bottom: 20px; }
-        p { font-size: 1.1rem; line-height: 1.6; color: #ccc; }
+        .btn-box { display: flex; justify-content: center; gap: 30px; position: relative; height: 100px; width: 300px; margin: 0 auto; }
         
-        .choice-btn { margin: 15px; padding: 12px 30px; border: 1px solid white; background: transparent; color: white; cursor: pointer; border-radius: 5px; font-size: 1rem; text-decoration: none; display: inline-block; transition: 0.3s; }
-        .choice-btn-save { background: #ff4d6d; border-color: #ff4d6d; }
-        .choice-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); }
+        .btn { padding: 15px 40px; font-size: 1.1rem; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .btn-no { background: #ff4d6d; color: white; box-shadow: 0 0 20px rgba(255, 77, 109, 0.5); }
+        .btn-yes { background: #444; color: #888; position: absolute; }
+
+        /* Cinematic Background Video Effect */
+        #video-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.3; filter: grayscale(100%); }
+
+        /* Hidden Surprise Section */
+        #surprise { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff0f3; z-index: 100; flex-direction: column; justify-content: center; align-items: center; color: #ff4d6d; text-align: center; }
+        #surprise h2 { font-size: 2.5rem; animation: heartBeat 1.2s infinite; }
+        @keyframes heartBeat { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
     </style>
 </head>
 <body>
 
-    <div id="cinematic-video"></div>
+    <video autoplay muted loop id="video-bg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-sad-man-sitting-on-the-beach-at-night-4028-large.mp4" type="video/mp4">
+    </video>
 
-    <div class="container" id="main-content">
-        <h1>For Us... If We Ever Mattered ❤️</h1>
-        <p>Aapne kaha "Khatam", par kya humari story is tarah beech mein khatam hone ke liye bani thi? Meri har saans, meri har koshish... sirf aapke liye thi.</p>
-        <p>Galti meri thi, par kya hum ek akhiri baar hamari movie ko Continue nahi kar sakte?</p>
-        
-        <div class="choice-container">
-            <a href="#" class="choice-btn choice-btn-save" onclick="continueStory()">Yes, Continue Our Story ❤️</a>
-            <br>
-            <a href="#" style="color: #444; font-size: 0.8rem;" onclick="breakStory()">No, Break the Reel. 🥀</a>
+    <div class="container" id="main-ui">
+        <h1 id="main-text">Aapne kaha "Sab Khatam"... <br> Kya hamara pyaar itna kamzor tha? 💔</h1>
+        <div class="btn-box">
+            <button class="btn btn-no" onclick="showSurprise()">Nahi, I Love You</button>
+            <button class="btn btn-yes" id="yesBtn" onmouseover="moveButton()">Yes, Khatam</button>
         </div>
     </div>
 
-    <div class="overlay-broken" id="broken-overlay">
-        <div class="static-noise">
-            <p>>> film.interrupted;</p>
-            <p>>> signal.lost;</p>
-            <p>>> connection.terminated;</p>
-            <p style="color:white; margin-top: 50px; font-size: 1rem;">>>> story.end. 🥀</p>
-        </div>
+    <div id="surprise">
+        <h2>I Knew It! ❤️</h2>
+        <p style="font-size: 1.2rem; margin-top: 20px; color: #333;">Mera dil jaanta tha ki aap mujhe itni aasani se nahi chhod sakti.<br>Main apni har galti sudhaarne ke liye taiyaar hoon. Please maan jao na? 🥺</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXN6dzR3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCBmcm9tX2dpZmh5X2NhdCZjdD1z/v6aOebdGHvqW6nF5S7/giphy.gif" width="200" style="margin-top: 20px;">
     </div>
 
     <script>
-        // Create Cinematic Particles
-        for(let i=0; i<80; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.bottom = '-' + Math.random() * 20 + 'vh';
-            p.style.animationDuration = Math.random() * 5 + 3 + 's';
-            p.style.opacity = Math.random();
-            document.body.appendChild(p);
+        function moveButton() {
+            const btn = document.getElementById('yesBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            
+            // Text changes as they try to click YES
+            const texts = ["Soch lo ek baar...", "Sach mein?", "Dil pe hath rakh ke bolo?", "Aise mat karo...", "Ek mauka aur?"];
+            document.getElementById('main-text').innerText = texts[Math.floor(Math.random() * texts.length)];
         }
 
-        function continueStory() {
-            alert("Aapka ye ek decision... Meri puri duniya ko phir se roshan kar dega. I promise, main kabhi rone nahi dunga! ❤️");
-            window.location.reload();
+        function showSurprise() {
+            document.getElementById('surprise').style.display = 'flex';
+            document.getElementById('main-ui').style.display = 'none';
+            // Start heart rain
+            setInterval(createHeart, 300);
         }
 
-        function breakStory() {
-            document.getElementById('broken-overlay').style.display = 'flex';
-            document.getElementById('cinematic-video').style.filter = 'grayscale(100%) brightness(0.1)';
-            alert("Zindagi bhar aapka intezaar rahega... Ye broken reel mere pashchatap ka nishaan hai. 🥀");
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-20px';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.color = '#ff4d6d';
+            heart.style.transition = '4s linear';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.style.transform = 'translateY(110vh)'; }, 10);
+            setTimeout(() => { heart.remove(); }, 4000);
         }
     </script>
 </body>
