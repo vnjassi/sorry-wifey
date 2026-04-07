@@ -3,145 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Just For You... ❤️</title>
+    <title>For My Life ❤️</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: #fff0f3; /* Gentle background color */
-            font-family: 'Segoe UI', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body, html { height: 100%; width: 100%; font-family: 'Poppins', sans-serif; overflow: hidden; }
+
+        /* Video Background */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            filter: brightness(0.6); /* Video ko thoda dark kiya hai taaki text dikhe */
+        }
+
+        /* Overlay Content */
+        .overlay {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-
-        /* Sad Puppy Background Layer */
-        .background-puppy {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://placedog.net/1920/1080?id=14'); /* Replace with a very sad puppy image if you find a better one */
-            background-size: cover;
-            background-position: center;
-            opacity: 0.15; /* Keeps it subtle */
-            z-index: -1;
-        }
-
-        /* 3D Rotating Heart Container */
-        .heart-3d-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            perspective: 800px;
-        }
-
-        .heart-3d {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            transform-style: preserve-3d;
-            animation: rotateHeart 10s linear infinite;
-        }
-
-        .heart-3d div {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background-color: #ff4d6d;
-            opacity: 0.8;
-            border-radius: 50%;
-        }
-
-        /* Basic pseudo-3D shape using rotated planes */
-        .heart-3d .face1 { transform: rotateY(0deg) translateZ(50px); }
-        .heart-3d .face2 { transform: rotateY(90deg) translateZ(50px); }
-        .heart-3d .face3 { transform: rotateY(180deg) translateZ(50px); }
-        .heart-3d .face4 { transform: rotateY(270deg) translateZ(50px); }
-
-        @keyframes rotateHeart {
-            from { transform: rotateY(0deg) rotateX(10deg); }
-            to { transform: rotateY(360deg) rotateX(10deg); }
-        }
-
-        /* Floating Sorry/Please Bubbles */
-        .bubble {
-            position: absolute;
-            background: rgba(255, 77, 109, 0.7);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            pointer-events: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            animation: floatBubble 6s ease-in infinite;
-        }
-
-        @keyframes floatBubble {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-        
-        /* Minimal Footer Message */
-        .visual-message {
-            position: fixed;
-            bottom: 30px;
             text-align: center;
-            width: 100%;
-            color: #ff4d6d;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 10;
+            background: rgba(0, 0, 0, 0.2);
         }
 
+        h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 20px; }
+        p { font-size: 1.5rem; max-width: 600px; line-height: 1.6; }
+
+        /* Falling Hearts Animation */
+        .heart {
+            position: fixed;
+            top: -10%;
+            color: #ff4d6d;
+            font-size: 25px;
+            z-index: 10;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .forgive-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: #ff4d6d;
+            border: none;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+        }
+        .forgive-btn:hover { transform: scale(1.1); background: #ff758c; }
     </style>
 </head>
 <body>
 
-    <div class="background-puppy"></div>
+    <video autoplay muted loop id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-romantic-couple-walking-on-the-beach-at-sunset-1579-large.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
-    <div class="heart-3d-container">
-        <div class="heart-3d">
-            <div class="face1"></div>
-            <div class="face2"></div>
-            <div class="face3"></div>
-            <div class="face4"></div>
-        </div>
-    </div>
-
-    <div class="visual-message">
-        My heart is always yours... Please? 🥺❤️
+    <div class="overlay">
+        <h1>I'm Sorry, My Love... 🥺</h1>
+        <p>Har galti ki maafi hoti hai, aur meri galti toh sirf ye thi ki maine tumhe dukh pahunchaya. Please maan jao na? ❤️</p>
+        <button class="forgive-btn" onclick="alert('I Love You Too! ❤️')">Maan Gayi? (Click Here)</button>
     </div>
 
     <script>
-        // Create Sorry Bubbles
-        const bubbleMessages = ["Sorry", "Please", "Forgive Me", "I Love You"];
-        
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            const randomMsg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
-            bubble.innerHTML = randomMsg;
-            
-            bubble.style.left = Math.random() * 90 + 'vw'; // Random horizontal position
-            bubble.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Random speed
-            
-            document.body.appendChild(bubble);
-            
-            // Remove bubble after animation ends
-            setTimeout(() => {
-                bubble.remove();
-            }, 7000);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
         }
-
-        // Start creating bubbles
-        setInterval(createBubble, 800);
+        setInterval(createHeart, 200);
     </script>
 </body>
 </html>
