@@ -3,97 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Is it really the end? 💔</title>
+    <title>The Last Page of Our Story? 🥀</title>
     <style>
-        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Georgia', serif; scroll-behavior: smooth; }
-        section { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 20px; position: relative; }
-        .fade-in { opacity: 0; transform: translateY(20px); transition: 1.5s all; }
-        .visible { opacity: 1; transform: translateY(0); }
+        body, html { margin: 0; padding: 0; background: #050505; color: #d1d1d1; font-family: 'Courier New', Courier, monospace; overflow-x: hidden; }
         
-        .heart-beat { animation: beat 1.5s infinite; color: #ff4d6d; font-size: 50px; }
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .scroll-container { height: 400vh; position: relative; }
 
-        .btn-container { margin-top: 30px; }
-        .btn { padding: 15px 30px; border: 1px solid #fff; background: transparent; color: #fff; cursor: pointer; border-radius: 5px; transition: 0.3s; margin: 10px; text-decoration: none; display: inline-block; }
-        .btn-stay { background: #ff4d6d; border: none; }
-        .btn:hover { transform: scale(1.1); }
+        .scene {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 1s, filter 1s;
+        }
 
-        /* Rain Effect */
-        #canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+        .memory-text { font-size: 1.5rem; max-width: 700px; line-height: 1.8; letter-spacing: 1px; }
+
+        /* Glitch effect for the "End" part */
+        .glitch { font-weight: bold; color: #ff4d6d; animation: glitch 1s infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .final-btn {
+            background: none;
+            border: 1px solid #ff4d6d;
+            color: #ff4d6d;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: 0.5s;
+        }
+        .final-btn:hover { background: #ff4d6d; color: white; box-shadow: 0 0 20px #ff4d6d; }
+
+        /* Rain effect to set the mood */
+        #rain { position: fixed; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.2; }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
+    <canvas id="rain"></canvas>
 
-    <section class="fade-in">
-        <div>
-            <h2>Aapne kaha "Sab yahin khatam hota hai"...</h2>
-            <p>Par kya mera dil ye maan pa raha hai?</p>
-            <p style="margin-top: 50px; font-size: 0.8rem;">(Scroll down if you ever loved me)</p>
-        </div>
-    </section>
-
-    <section class="fade-in">
-        <div>
-            <h2>Galti meri thi, saza hum dono ko kyu?</h2>
-            <p>Maine galti ki, maine dil dukhaya... main gunahgaar hoon.</p>
-        </div>
-    </section>
-
-    <section class="fade-in">
-        <div>
-            <div class="heart-beat">💔</div>
-            <h2>Ye dil ab bhi aapka naam leta hai.</h2>
-            <p>Agar aapne rishta khatam kar diya, toh ye dhadkan kis kaam ki?</p>
-        </div>
-    </section>
-
-    <section class="fade-in">
-        <div>
-            <h2>The Last Choice...</h2>
-            <p>Main tab tak intezaar karunga, jab tak aap mujhe maaf nahi kar deti.</p>
-            <div class="btn-container">
-                <a href="#" class="btn btn-stay" onclick="accepted()">Ek Mauka Aur? ❤️</a>
-                <a href="#" class="btn" onclick="rejected()">Khatam Kar Do 🥀</a>
+    <div class="scroll-container">
+        <div class="scene" id="s1">
+            <div class="memory-text">
+                <p>Ek pal ke liye sochiye... </p>
+                <p>Wo saari baatein, wo saari raatein jo humne saath bitayi.</p>
+                <p style="font-size: 0.8rem; color: #666;">(Keep scrolling... slowly)</p>
             </div>
         </div>
-    </section>
+
+        <div class="scene" id="s2" style="opacity: 0;">
+            <div class="memory-text">
+                <p>Maine galti ki, maine dil dukhaya... <br>Main jaanta hoon mere "Sorry" se dard kam nahi hoga.</p>
+                <p>Par kya humara pyaar is ek galti se chota hai?</p>
+            </div>
+        </div>
+
+        <div class="scene" id="s3" style="opacity: 0;">
+            <div class="memory-text">
+                <p>Agar aapne kaha <span class="glitch">"SAB KHATAM"</span>...</p>
+                <p>Toh meri duniya ka har rang chala jayega. <br>Sirf andhera bachega.</p>
+            </div>
+        </div>
+
+        <div class="scene" id="s4" style="opacity: 0;">
+            <div>
+                <h2 style="color: #ff4d6d;">Khatam mat karo... 💔</h2>
+                <p>Ek akhiri mauka maang raha hoon, rishta jodne ke liye, todne ke liye nahi.</p>
+                <button class="final-btn" onclick="alert('Thank you for choosing US. I will never let you down again. ❤️')">I Choose You</button>
+                <br><br>
+                <a href="#" style="color: #444; font-size: 0.8rem;" onclick="alert('Zindagi bhar aapka intezaar rahega... 🥀')">Go ahead, end it.</a>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.5 });
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const h = window.innerHeight;
 
-        document.querySelectorAll('.fade-in').forEach(section => observer.observe(section));
+            // Fade logic based on scroll position
+            document.getElementById('s1').style.opacity = 1 - (scrolled / h);
+            
+            if(scrolled > h * 0.5) {
+                document.getElementById('s2').style.opacity = (scrolled - h*0.5) / h;
+            }
+            if(scrolled > h * 1.5) {
+                document.getElementById('s2').style.opacity = 1 - (scrolled - h*1.5) / h;
+                document.getElementById('s3').style.opacity = (scrolled - h*1.5) / h;
+            }
+            if(scrolled > h * 2.5) {
+                document.getElementById('s3').style.opacity = 1 - (scrolled - h*2.5) / h;
+                document.getElementById('s4').style.opacity = (scrolled - h*2.5) / h;
+            }
+        });
 
-        function accepted() {
-            alert("Aapka ye ek mauka meri poori duniya badal dega. I promise, main kabhi rone nahi dunga! ❤️");
-            window.location.reload();
-        }
-
-        function rejected() {
-            alert("Agar aapka faisla yahi hai, toh main aapki khushi ke liye door chala jaunga... Par pyaar hamesha rahega. 🥀");
-        }
-
-        // Simple Rain Effect
-        const canvas = document.getElementById('canvas');
+        // Rain Effect
+        const canvas = document.getElementById('rain');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const drops = [];
-        for(let i=0; i<100; i++) drops.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2+2});
+        const drops = Array(100).fill().map(() => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, l: Math.random()*20, v: Math.random()*5+5}));
         
         function draw() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "white";
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
             drops.forEach(d => {
-                ctx.fillRect(d.x, d.y, 1, 10);
-                d.y += d.s;
-                if(d.y > canvas.height) d.y = -10;
+                ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y+d.l); ctx.stroke();
+                d.y += d.v; if(d.y > canvas.height) d.y = -20;
             });
             requestAnimationFrame(draw);
         }
