@@ -3,94 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Life ❤️</title>
+    <title>Feel Me... ❤️</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body, html { height: 100%; width: 100%; font-family: 'Poppins', sans-serif; overflow: hidden; }
-
-        /* Video Background */
-        #bg-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
-            filter: brightness(0.6); /* Video ko thoda dark kiya hai taaki text dikhe */
-        }
-
-        /* Overlay Content */
-        .overlay {
-            position: relative;
-            z-index: 1;
-            height: 100vh;
+        body, html {
+            height: 100%; margin: 0;
+            background-color: #1a1a1a; /* Dark & Sad theme initially */
+            color: white;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.2);
+            transition: background-color 2s;
+            overflow: hidden;
         }
 
-        h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 20px; }
-        p { font-size: 1.5rem; max-width: 600px; line-height: 1.6; }
+        .container { text-align: center; z-index: 10; }
 
-        /* Falling Hearts Animation */
-        .heart {
-            position: fixed;
-            top: -10%;
-            color: #ff4d6d;
-            font-size: 25px;
-            z-index: 10;
-            user-select: none;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
-
-        .forgive-btn {
-            margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background: #ff4d6d;
-            border: none;
-            color: white;
-            border-radius: 50px;
+        #heart {
+            font-size: 100px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            transition: 0.3s;
+            display: inline-block;
+            transition: transform 0.3s;
+            filter: grayscale(100%);
         }
-        .forgive-btn:hover { transform: scale(1.1); background: #ff758c; }
+
+        .instruction {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* Background Effects */
+        .rain { position: absolute; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        
+        /* Celebration Colors */
+        .happy-bg { background-color: #ffeff2 !important; color: #ff4d6d !important; }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop id="bg-video">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-romantic-couple-walking-on-the-beach-at-sunset-1579-large.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-    </video>
+    <div class="rain" id="rain-box"></div>
 
-    <div class="overlay">
-        <h1>I'm Sorry, My Love... 🥺</h1>
-        <p>Har galti ki maafi hoti hai, aur meri galti toh sirf ye thi ki maine tumhe dukh pahunchaya. Please maan jao na? ❤️</p>
-        <button class="forgive-btn" onclick="alert('I Love You Too! ❤️')">Maan Gayi? (Click Here)</button>
+    <div class="container" id="main-content">
+        <div id="heart">💔</div>
+        <p class="instruction" id="msg">Mera dil toot gaya hai... isse sirf aap jod sakte ho.</p>
+        <p id="sub-msg" style="font-size: 0.9rem; margin-top: 10px;">(Click on the heart to heal it)</p>
     </div>
 
     <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
+        const heart = document.getElementById('heart');
+        const body = document.body;
+        const msg = document.getElementById('msg');
+        const subMsg = document.getElementById('sub-msg');
+
+        heart.addEventListener('click', function() {
+            // Change UI to Happy
+            heart.innerHTML = "❤️";
+            heart.style.filter = "grayscale(0%)";
+            heart.style.transform = "scale(1.5)";
+            body.classList.add('happy-bg');
+            
+            msg.innerHTML = "Aapne mujhe phir se zinda kar diya! ❤️<br><br>Maafi mangne se galti khatam nahi hoti, par aapka ek touch sab theek kar sakta hai. I Love You!";
+            subMsg.style.display = "none";
+
+            // Start Heart Rain instead of Sad Rain
+            startHeartRain();
+        });
+
+        function startHeartRain() {
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.innerHTML = "❤️";
+                h.style.position = "fixed";
+                h.style.left = Math.random() * 100 + "vw";
+                h.style.top = "-50px";
+                h.style.fontSize = Math.random() * 20 + 20 + "px";
+                h.style.transition = "transform 3s linear";
+                h.style.zIndex = "5";
+                document.body.appendChild(h);
+
+                setTimeout(() => {
+                    h.style.transform = "translateY(110vh)";
+                }, 10);
+
+                setTimeout(() => h.remove(), 4000);
+            }, 300);
         }
-        setInterval(createHeart, 200);
+
+        // Initial Sad Rain
+        function startSadRain() {
+            for(let i=0; i<30; i++) {
+                const drop = document.createElement('div');
+                drop.innerHTML = "💧";
+                drop.style.position = "fixed";
+                drop.style.left = Math.random() * 100 + "vw";
+                drop.style.top = Math.random() * 100 + "vh";
+                drop.style.opacity = "0.2";
+                document.getElementById('rain-box').appendChild(drop);
+            }
+        }
+        startSadRain();
     </script>
 </body>
 </html>
