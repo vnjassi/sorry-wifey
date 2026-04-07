@@ -3,131 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Last Page of Our Story? 🥀</title>
+    <title>Our Memory Lane... 🥀</title>
     <style>
-        body, html { margin: 0; padding: 0; background: #050505; color: #d1d1d1; font-family: 'Courier New', Courier, monospace; overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Times New Roman', Times, serif; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
         
-        .scroll-container { height: 400vh; position: relative; }
-
-        .scene {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            text-align: center;
-            padding: 20px;
-            transition: opacity 1s, filter 1s;
+        /* The "Video" Layer */
+        #cinematic-video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://media.giphy.com/media/26hirEPeO70wYf2lG/giphy.gif'); /* A calm, vintage nostalgic film gif */
+            background-size: cover; background-position: center;
+            filter: grayscale(80%) brightness(0.4); /* Vintage Film Look */
+            transition: 1.5s filter; z-index: -1;
         }
 
-        .memory-text { font-size: 1.5rem; max-width: 700px; line-height: 1.8; letter-spacing: 1px; }
+        /* Floating Cinematic Particles */
+        .particle { position: fixed; width: 3px; height: 3px; background: rgba(255,255,255,0.5); border-radius: 50%; pointer-events: none; animation: floatParticle linear infinite; }
+        @keyframes floatParticle { to { transform: translateY(-105vh) translateX(50px); } }
 
-        /* Glitch effect for the "End" part */
-        .glitch { font-weight: bold; color: #ff4d6d; animation: glitch 1s infinite; }
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
+        /* The Interrupted Overlay */
+        .overlay-broken { position: absolute; width: 100%; height: 100%; background: #000; display: none; z-index: 100; justify-content: center; align-items: center; }
+        .static-noise { font-family: 'Courier New', monospace; color: #ff4d6d; font-size: 0.8rem; text-align: left; }
 
-        .final-btn {
-            background: none;
-            border: 1px solid #ff4d6d;
-            color: #ff4d6d;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: 0.5s;
-        }
-        .final-btn:hover { background: #ff4d6d; color: white; box-shadow: 0 0 20px #ff4d6d; }
-
-        /* Rain effect to set the mood */
-        #rain { position: fixed; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.2; }
+        /* General Styling */
+        .container { text-align: center; z-index: 10; max-width: 600px; padding: 20px; }
+        h1 { font-size: 2.2rem; font-style: italic; margin-bottom: 20px; }
+        p { font-size: 1.1rem; line-height: 1.6; color: #ccc; }
+        
+        .choice-btn { margin: 15px; padding: 12px 30px; border: 1px solid white; background: transparent; color: white; cursor: pointer; border-radius: 5px; font-size: 1rem; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .choice-btn-save { background: #ff4d6d; border-color: #ff4d6d; }
+        .choice-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); }
     </style>
 </head>
 <body>
 
-    <canvas id="rain"></canvas>
+    <div id="cinematic-video"></div>
 
-    <div class="scroll-container">
-        <div class="scene" id="s1">
-            <div class="memory-text">
-                <p>Ek pal ke liye sochiye... </p>
-                <p>Wo saari baatein, wo saari raatein jo humne saath bitayi.</p>
-                <p style="font-size: 0.8rem; color: #666;">(Keep scrolling... slowly)</p>
-            </div>
+    <div class="container" id="main-content">
+        <h1>For Us... If We Ever Mattered ❤️</h1>
+        <p>Aapne kaha "Khatam", par kya humari story is tarah beech mein khatam hone ke liye bani thi? Meri har saans, meri har koshish... sirf aapke liye thi.</p>
+        <p>Galti meri thi, par kya hum ek akhiri baar hamari movie ko Continue nahi kar sakte?</p>
+        
+        <div class="choice-container">
+            <a href="#" class="choice-btn choice-btn-save" onclick="continueStory()">Yes, Continue Our Story ❤️</a>
+            <br>
+            <a href="#" style="color: #444; font-size: 0.8rem;" onclick="breakStory()">No, Break the Reel. 🥀</a>
         </div>
+    </div>
 
-        <div class="scene" id="s2" style="opacity: 0;">
-            <div class="memory-text">
-                <p>Maine galti ki, maine dil dukhaya... <br>Main jaanta hoon mere "Sorry" se dard kam nahi hoga.</p>
-                <p>Par kya humara pyaar is ek galti se chota hai?</p>
-            </div>
-        </div>
-
-        <div class="scene" id="s3" style="opacity: 0;">
-            <div class="memory-text">
-                <p>Agar aapne kaha <span class="glitch">"SAB KHATAM"</span>...</p>
-                <p>Toh meri duniya ka har rang chala jayega. <br>Sirf andhera bachega.</p>
-            </div>
-        </div>
-
-        <div class="scene" id="s4" style="opacity: 0;">
-            <div>
-                <h2 style="color: #ff4d6d;">Khatam mat karo... 💔</h2>
-                <p>Ek akhiri mauka maang raha hoon, rishta jodne ke liye, todne ke liye nahi.</p>
-                <button class="final-btn" onclick="alert('Thank you for choosing US. I will never let you down again. ❤️')">I Choose You</button>
-                <br><br>
-                <a href="#" style="color: #444; font-size: 0.8rem;" onclick="alert('Zindagi bhar aapka intezaar rahega... 🥀')">Go ahead, end it.</a>
-            </div>
+    <div class="overlay-broken" id="broken-overlay">
+        <div class="static-noise">
+            <p>>> film.interrupted;</p>
+            <p>>> signal.lost;</p>
+            <p>>> connection.terminated;</p>
+            <p style="color:white; margin-top: 50px; font-size: 1rem;">>>> story.end. 🥀</p>
         </div>
     </div>
 
     <script>
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const h = window.innerHeight;
-
-            // Fade logic based on scroll position
-            document.getElementById('s1').style.opacity = 1 - (scrolled / h);
-            
-            if(scrolled > h * 0.5) {
-                document.getElementById('s2').style.opacity = (scrolled - h*0.5) / h;
-            }
-            if(scrolled > h * 1.5) {
-                document.getElementById('s2').style.opacity = 1 - (scrolled - h*1.5) / h;
-                document.getElementById('s3').style.opacity = (scrolled - h*1.5) / h;
-            }
-            if(scrolled > h * 2.5) {
-                document.getElementById('s3').style.opacity = 1 - (scrolled - h*2.5) / h;
-                document.getElementById('s4').style.opacity = (scrolled - h*2.5) / h;
-            }
-        });
-
-        // Rain Effect
-        const canvas = document.getElementById('rain');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const drops = Array(100).fill().map(() => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, l: Math.random()*20, v: Math.random()*5+5}));
-        
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
-            drops.forEach(d => {
-                ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y+d.l); ctx.stroke();
-                d.y += d.v; if(d.y > canvas.height) d.y = -20;
-            });
-            requestAnimationFrame(draw);
+        // Create Cinematic Particles
+        for(let i=0; i<80; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.bottom = '-' + Math.random() * 20 + 'vh';
+            p.style.animationDuration = Math.random() * 5 + 3 + 's';
+            p.style.opacity = Math.random();
+            document.body.appendChild(p);
         }
-        draw();
+
+        function continueStory() {
+            alert("Aapka ye ek decision... Meri puri duniya ko phir se roshan kar dega. I promise, main kabhi rone nahi dunga! ❤️");
+            window.location.reload();
+        }
+
+        function breakStory() {
+            document.getElementById('broken-overlay').style.display = 'flex';
+            document.getElementById('cinematic-video').style.filter = 'grayscale(100%) brightness(0.1)';
+            alert("Zindagi bhar aapka intezaar rahega... Ye broken reel mere pashchatap ka nishaan hai. 🥀");
+        }
     </script>
 </body>
 </html>
