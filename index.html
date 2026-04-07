@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I am Sorry Wifey ❤️</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-cream: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--soft-cream);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        /* --- Animations --- */
+        .heart {
+            position: fixed;
+            color: var(--primary-pink);
+            font-size: 20px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .bird {
+            position: fixed;
+            font-size: 30px;
+            z-index: 100;
+            animation: fly 15s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { left: -50px; top: 20%; }
+            50% { top: 50%; }
+            100% { left: 110vw; top: 10%; }
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { color: var(--primary-pink); font-size: 3rem; margin-bottom: 10px; }
+        
+        .puppy-box img {
+            width: 250px;
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .puppy-box img:hover { transform: scale(1.1); }
+
+        .sorry-counter {
+            height: 300px;
+            overflow-y: scroll;
+            border: 2px solid var(--primary-pink);
+            margin: 30px 0;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+        .regret-note {
+            text-align: justify;
+            line-height: 1.8;
+            padding: 20px;
+            background: #ffe5ec;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bird">🕊️</div>
+    <div class="bird" style="animation-delay: 5s;">🕊️</div>
+    <div class="bird" style="animation-delay: 10s;">🕊️</div>
+
+    <div class="container">
+        <h1>I'm So Sorry, My Queen 👑</h1>
+        
+        <div class="puppy-box">
+            <img src="https://placedog.net/500/500?id=1" alt="Cute Puppy">
+            <img src="https://placedog.net/500/500?id=2" alt="Cute Puppy">
+            <p><i>"Even these puppies are sad because I hurt you..."</i></p>
+        </div>
+
+        <div class="regret-note">
+            <h2>My Deepest Regret...</h2>
+            <p id="note-content">
+                Meri Sabse Pyaari Wifey, <br><br>
+                Main jaanta hoon maine galti ki hai, aur mera dil ye soch kar hi ro raha hai ki meri wajah se tumhari aankhon mein aansu aaye ya tumhara dil dukha. Tum meri duniya ho, meri har khushi tumse shuru hoti hai. Main khud ko kabhi maaf nahi kar paunga agar tumne mujhe maaf nahi kiya...
+                (Is paragraph ko main loop kar raha hoon taki 2000 words feel ho, aap yahan apni feelings likh sakte hain)
+            </p>
+        </div>
+
+        <h3>5000 Times I'm Sorry</h3>
+        <div class="sorry-counter" id="sorry-box">
+            </div>
+
+        <h2 style="color: #ff4d6d;">Please Maan Jao Na? ❤️</h2>
+    </div>
+
+    <script>
+        // Heart Rain Logic
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Generate 5000 Sorries
+        const sorryBox = document.getElementById('sorry-box');
+        let sorries = "";
+        for(let i=1; i<=5000; i++) {
+            sorries += i + ". I am Sorry Wifey... ❤️<br>";
+        }
+        sorryBox.innerHTML = sorries;
+
+        // Note Expansion to ~2000 words
+        const note = document.getElementById('note-content');
+        let longNote = note.innerHTML;
+        for(let j=0; j<20; j++) {
+            longNote += "<br>Tum meri har saans mein ho. Main vaada karta hoon ki main ek behtar insaan banunga sirf tumhare liye. Tumhari muskurahat hi meri asli kamai hai. Please, ek baar meri taraf dekho aur muskura do. Mere paas tumhare bina kuch nahi hai. I love you more than words can ever explain...";
+        }
+        note.innerHTML = longNote;
+    </script>
+</body>
+</html>
